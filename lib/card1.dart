@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fooderlich_app/main.dart';
+
+import "theme/custom_theme.dart";
 
 class Card1 extends StatelessWidget {
   final String category = "Editor's Choice";
@@ -25,6 +28,37 @@ class Card1 extends StatelessWidget {
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
+        ),
+        child: Stack(
+          children: [
+            Text(
+              category,
+              style: CustomTheme.darkTextTheme.bodyText1,
+            ),
+            Positioned(
+              child: Text(
+                title,
+                style: CustomTheme.darkTextTheme.headline5,
+              ),
+              top: 20,
+            ),
+            Positioned(
+              child: Text(
+                description,
+                style: CustomTheme.darkTextTheme.bodyText1,
+              ),
+              bottom: 20,
+              right: 5,
+            ),
+            Positioned(
+              child: Text(
+                chef,
+                style: CustomTheme.darkTextTheme.bodyText1,
+              ),
+              bottom: 0,
+              right: 5,
+            ),
+          ],
         ),
       ),
     );
