@@ -21,7 +21,14 @@ class Card2 extends StatelessWidget {
           ),
         ),
         child: Column(
-          children: const [],
+          children: [
+            // Stack(
+            //   children: const [
+            //     Text("Smoothie"),
+            //     Text("Recipe"),
+            //   ],
+            // ),
+          ],
         ),
       ),
     );
