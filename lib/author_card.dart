@@ -20,24 +20,39 @@ class AuthorCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleImage(
-            imageProvider: imageProvider,
-            imageRadius: 32,
-          ),
-          const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                authorName,
-                style: CustomTheme.lightTextTheme.headline2,
+              CircleImage(
+                imageProvider: imageProvider,
+                imageRadius: 32,
               ),
-              Text(
-                title,
-                style: CustomTheme.lightTextTheme.headline3,
-              )
+              const SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    authorName,
+                    style: CustomTheme.lightTextTheme.headline2,
+                  ),
+                  Text(
+                    title,
+                    style: CustomTheme.lightTextTheme.headline3,
+                  )
+                ],
+              ),
             ],
+          ),
+          IconButton(
+            iconSize: 30,
+            color: Colors.grey[500],
+            onPressed: () {
+              const SnackBar snackBar =
+                  SnackBar(content: Text("Favorite pressed"));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+            icon: const Icon(Icons.favorite_border),
           )
         ],
       ),
