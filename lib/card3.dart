@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'theme/custom_theme.dart';
+
 class Card3 extends StatelessWidget {
   const Card3({Key? key}) : super(key: key);
 
@@ -16,12 +18,36 @@ class Card3 extends StatelessWidget {
             image: AssetImage("assets/mag2.png"),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         child: Stack(
-          children: [],
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.book,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Recipe Trends",
+                    style: CustomTheme.darkTextTheme.headline2,
+                  ),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
