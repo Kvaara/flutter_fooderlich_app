@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'circle_image.dart';
 import 'theme/custom_theme.dart';
 
-class AuthorCard extends StatelessWidget {
+class AuthorCard extends StatefulWidget {
   final String authorName;
   final String title;
   final ImageProvider? imageProvider;
@@ -16,6 +16,13 @@ class AuthorCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AuthorCard> createState() => _AuthorCardState();
+}
+
+class _AuthorCardState extends State<AuthorCard> {
+  bool _isFavorited = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -25,7 +32,7 @@ class AuthorCard extends StatelessWidget {
           Row(
             children: [
               CircleImage(
-                imageProvider: imageProvider,
+                imageProvider: widget.imageProvider,
                 imageRadius: 32,
               ),
               const SizedBox(width: 8),
@@ -33,11 +40,11 @@ class AuthorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    authorName,
+                    widget.authorName,
                     style: CustomTheme.lightTextTheme.headline2,
                   ),
                   Text(
-                    title,
+                    widget.title,
                     style: CustomTheme.lightTextTheme.headline3,
                   )
                 ],
@@ -46,11 +53,12 @@ class AuthorCard extends StatelessWidget {
           ),
           IconButton(
             iconSize: 30,
-            color: Colors.grey[500],
+            color: Colors.red[500],
             onPressed: () {
-              const SnackBar snackBar =
-                  SnackBar(content: Text("Favorite pressed"));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // const SnackBar snackBar =
+              //     SnackBar(content: Text("Favorite pressed"));
+              // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              _isFavorited = !_isFavorited;
             },
             icon: const Icon(Icons.favorite_border),
           )
