@@ -55,12 +55,14 @@ class _AuthorCardState extends State<AuthorCard> {
             iconSize: 30,
             color: Colors.red[500],
             onPressed: () {
-              // const SnackBar snackBar =
-              //     SnackBar(content: Text("Favorite pressed"));
-              // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              _isFavorited = !_isFavorited;
+              setState(() {
+                const SnackBar snackBar =
+                    SnackBar(content: Text("Favorite pressed"));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                _isFavorited = !_isFavorited;
+              });
             },
-            icon: const Icon(Icons.favorite_border),
+            icon: Icon(_isFavorited ? Icons.favorite : Icons.favorite_border),
           )
         ],
       ),
