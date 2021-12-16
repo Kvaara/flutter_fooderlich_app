@@ -1,9 +1,6 @@
 // ignore_for_file: file_names
-import 'package:flutter/material.dart';
 
-import "widgets/card1.dart";
-import 'widgets/card2.dart';
-import 'widgets/card3.dart';
+import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,15 +12,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  static final List<Widget> pages = [
-    const Card1(),
-    const Card2(),
-    const Card3(),
+  static List<Widget> pages = <Widget>[
+    // TODO: Replace with ExploreScreen
+    Container(color: Colors.white),
+    // TODO: Replace with RecipesScreen
+    Container(color: Colors.green),
+    Container(color: Colors.blue),
   ];
 
-  void _onItemTapped(int index) => setState(() {
-        _selectedIndex = index;
-      });
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +39,19 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
         currentIndex: _selectedIndex,
-        //Can also just type _onItemTapped. Compiler automatically infers the callback parameter as the implemented function's parameter
-        onTap: (int newIndex) {
-          _onItemTapped(newIndex);
-        },
+        onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_giftcard),
-            label: "Card1",
+            icon: Icon(Icons.explore),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_giftcard),
-            label: "Card2",
+            icon: Icon(Icons.book),
+            label: 'Recipes',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_giftcard),
-            label: "Card3",
+            icon: Icon(Icons.list),
+            label: 'To Buy',
           ),
         ],
       ),

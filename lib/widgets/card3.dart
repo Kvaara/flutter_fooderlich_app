@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
 
 import '../theme/custom_theme.dart';
+import '../models/models.dart';
 
 class Card3 extends StatelessWidget {
-  const Card3({Key? key}) : super(key: key);
+  final ExploreRecipe recipe;
+
+  const Card3({
+    Key? key,
+    required this.recipe,
+  }) : super(key: key);
+
+  List<Widget> createTagChips() {
+    final chips = <Widget>[];
+    recipe.tags.take(6).forEach((element) {
+      final chip = Chip(
+        label: Text(
+          element,
+          style: CustomTheme.darkTextTheme.bodyText1,
+        ),
+        backgroundColor: Colors.black.withOpacity(0.7),
+      );
+      chips.add(chip);
+    });
+
+    return chips;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +35,14 @@ class Card3 extends StatelessWidget {
           width: 350,
           height: 450,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/mag2.png"),
+            image: AssetImage(recipe.backgroundImage),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
+          ),
         ),
         child: Stack(
           children: [
@@ -39,84 +63,19 @@ class Card3 extends StatelessWidget {
                     size: 40,
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    "Recipe Trends",
-                    style: CustomTheme.darkTextTheme.headline2,
-                  ),
+                  Text(recipe.title,
+                      style: CustomTheme.darkTextTheme.headline2),
                   const SizedBox(height: 30),
                 ],
               ),
             ),
             Center(
               child: Wrap(
-                alignment: WrapAlignment.start,
-                spacing: 12,
-                children: [
-                  Chip(
-                    label: Text(
-                      "Healthy",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                    onDeleted: () {
-                      print("delete");
-                    },
-                  ),
-                  Chip(
-                    label: Text(
-                      "Vegan",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                    onDeleted: () {
-                      print("delete");
-                    },
-                  ),
-                  Chip(
-                    label: Text(
-                      "Carrots",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Greens",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Wheat",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Pescetarian",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Mint",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Lemongrass",
-                      style: CustomTheme.darkTextTheme.bodyText1,
-                    ),
-                    backgroundColor: Colors.black.withOpacity(0.7),
-                  ),
-                ],
-              ),
-            )
+                  alignment: WrapAlignment.start,
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: createTagChips()),
+            ),
           ],
         ),
       ),
