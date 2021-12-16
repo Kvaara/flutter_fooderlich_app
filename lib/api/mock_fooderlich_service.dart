@@ -6,6 +6,15 @@ import '../models/models.dart';
 
 // Mock recipe service that grabs sample json data to mock recipe request/response
 class MockFooderlichService {
+  static final MockFooderlichService _mockFooderlichService =
+      MockFooderlichService._privateConstructor();
+
+  // Singleton pattern for returning only one instance
+  MockFooderlichService._privateConstructor();
+  factory MockFooderlichService() {
+    return _mockFooderlichService;
+  }
+
   // Batch request that gets both today recipes and friend's feed
   Future<ExploreData> getExploreData() async {
     final todayRecipes = await _getTodayRecipes();
