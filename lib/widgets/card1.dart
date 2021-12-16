@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fooderlich_app/main.dart';
 
-import "theme/custom_theme.dart";
+import "../theme/custom_theme.dart";
 
 class Card1 extends StatelessWidget {
   final String category = "Editor's Choice";

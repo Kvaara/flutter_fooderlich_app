@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'theme/custom_theme.dart';
+import '../theme/custom_theme.dart';
 
 class Card3 extends StatelessWidget {
   const Card3({Key? key}) : super(key: key);

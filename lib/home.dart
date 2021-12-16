@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
-import "card1.dart";
-import 'card2.dart';
-import 'card3.dart';
+import "widgets/card1.dart";
+import 'widgets/card2.dart';
+import 'widgets/card3.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
