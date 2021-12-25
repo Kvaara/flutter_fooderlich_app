@@ -32,7 +32,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
   @override
   void initState() {
     super.initState();
-    // 1
+
     final originalItem = widget.originalItem;
     if (originalItem != null) {
       _nameController.text = originalItem.name;
@@ -45,12 +45,17 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
       _dueDate = date;
     }
 
-    // 2
     _nameController.addListener(() {
       setState(() {
         _name = _nameController.text;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
   @override
