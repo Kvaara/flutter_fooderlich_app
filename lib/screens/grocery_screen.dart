@@ -14,8 +14,7 @@ class GroceryScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          final groceryManager =
-              Provider.of<GroceryManager>(context, listen: false);
+          final groceryManager = context.read<GroceryManager>();
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -42,6 +41,7 @@ class GroceryScreen extends StatelessWidget {
         // 3
         if (manager.groceryItems.isNotEmpty) {
           // return GroceryListScreen(manager: manager);
+          return Container();
         } else {
           // 4
           return const EmptyGroceryScreen();
