@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/models.dart';
@@ -63,7 +64,6 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 2
       appBar: AppBar(
         actions: [
           IconButton(
@@ -71,15 +71,12 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             onPressed: () {},
           )
         ],
-        // 3
         elevation: 0.0,
-        // 4
         title: Text(
           'Grocery Item',
           style: GoogleFonts.lato(fontWeight: FontWeight.w600),
         ),
       ),
-      // 5
       body: Container(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -87,6 +84,8 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             buildNameField(),
             const SizedBox(height: 11.0),
             buildImportanceField(),
+            const SizedBox(height: 6.0),
+            buildDateField(context),
           ],
         ),
       ),
@@ -122,30 +121,23 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
   }
 
   Widget buildImportanceField() {
-    // 1
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 2
         Text(
           'Importance',
           style: GoogleFonts.lato(fontSize: 28.0),
         ),
-        // 3
         Wrap(
           spacing: 10.0,
           children: [
-            // 4
             ChoiceChip(
-              // 5
               selectedColor: Colors.black,
-              // 6
               selected: _importance == Importance.low,
               label: const Text(
                 'low',
                 style: TextStyle(color: Colors.white),
               ),
-              // 7
               onSelected: (selected) {
                 setState(() => _importance = Importance.low);
               },
@@ -174,6 +166,44 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             ),
           ],
         )
+      ],
+    );
+  }
+
+  Widget buildDateField(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Date',
+              style: GoogleFonts.lato(fontSize: 28.0),
+            ),
+            TextButton(
+              child: const Text('Select'),
+              onPressed: () async {
+                final currentDate = DateTime.now();
+                final selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: currentDate,
+                  firstDate: currentDate,
+                  lastDate: DateTime(currentDate.year + 5),
+                );
+
+                setState(
+                  () {
+                    if (selectedDate != null) {
+                      _dueDate = selectedDate;
+                    }
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+        Text(DateFormat('dd-MM-yyyy').format(_dueDate)),
       ],
     );
   }
