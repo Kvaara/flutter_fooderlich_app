@@ -26,7 +26,10 @@ class Home extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-        body: pages[tabManager.selectedTab],
+        body: IndexedStack(
+          index: tabManager.selectedTab,
+          children: pages,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor:
               Theme.of(context).textSelectionTheme.selectionColor,
