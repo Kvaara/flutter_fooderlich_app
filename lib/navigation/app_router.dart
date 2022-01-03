@@ -6,7 +6,7 @@ import '../screens/screens.dart';
 class AppRouter extends RouterDelegate
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   @override
-  final GlobalKey<NavigatorState> navigatorKey;
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   final AppStateManager appStateManager;
   final GroceryManager groceryManager;
@@ -16,7 +16,7 @@ class AppRouter extends RouterDelegate
     required this.appStateManager,
     required this.groceryManager,
     required this.profileManager,
-  }) : navigatorKey = GlobalKey<NavigatorState>() {
+  }) {
     appStateManager.addListener(notifyListeners);
     groceryManager.addListener(notifyListeners);
     profileManager.addListener(notifyListeners);
@@ -34,8 +34,17 @@ class AppRouter extends RouterDelegate
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
+      onPopPage: _handlePopPage,
       pages: [],
     );
+  }
+
+  bool _handlePopPage(Route<dynamic> route, result) {
+    if (!route.didPop(result)) {
+      return false;
+    }
+
+    return true;
   }
 
   @override
