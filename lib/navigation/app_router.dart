@@ -39,6 +39,8 @@ class AppRouter extends RouterDelegate
         if (!appStateManager.isInitialized) SplashScreen.page(),
         if (appStateManager.isInitialized && !appStateManager.isLoggedIn)
           LoginScreen.page(),
+        if (appStateManager.isInitialized && appStateManager.isLoggedIn)
+          OnboardingScreen.page(),
       ],
     );
   }
