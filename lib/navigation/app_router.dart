@@ -41,6 +41,8 @@ class AppRouter extends RouterDelegate
           LoginScreen.page(),
         if (appStateManager.isInitialized && appStateManager.isLoggedIn)
           OnboardingScreen.page(),
+        if (appStateManager.isOnboardingComplete)
+          Home.page(appStateManager.getSelectedTab),
       ],
     );
   }
