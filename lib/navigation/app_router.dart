@@ -50,6 +50,10 @@ class AppRouter extends RouterDelegate
       return false;
     }
 
+    if (route.settings.name == FooderlichPages.onboardingPath) {
+      appStateManager.logout();
+    }
+
     return true;
   }
 
