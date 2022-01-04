@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
 import '../models/models.dart';
-import 'grocery_item_screen.dart';
 
 class GroceryListScreen extends StatelessWidget {
   final GroceryManager manager;
@@ -34,7 +33,7 @@ class GroceryListScreen extends StatelessWidget {
               ),
             ),
             onDismissed: (direction) {
-              manager.deleteItemAtGivenIndex(index);
+              manager.deleteItem(index);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('${item.name} dismissed'),
@@ -47,25 +46,12 @@ class GroceryListScreen extends StatelessWidget {
                 item: item,
                 onComplete: (change) {
                   if (change != null) {
-                    manager.completeItemAtGivenIndex(index, change);
+                    manager.completeItem(index, change);
                   }
                 },
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GroceryItemScreen(
-                      originalItem: item,
-                      onUpdate: (item) {
-                        manager.updateItemAtGivenIndex(item, index);
-
-                        Navigator.pop(context);
-                      },
-                      onCreate: (_) {},
-                    ),
-                  ),
-                );
+                manager.groceryItemTapped(index);
               },
             ),
           );

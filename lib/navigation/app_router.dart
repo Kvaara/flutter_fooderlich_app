@@ -43,6 +43,22 @@ class AppRouter extends RouterDelegate
           OnboardingScreen.page(),
         if (appStateManager.isOnboardingComplete)
           Home.page(appStateManager.getSelectedTab),
+        if (groceryManager.isCreatingNewItem)
+          GroceryItemScreen.page(
+            onCreate: (item) {
+              groceryManager.addItem(item);
+            },
+            onUpdate: (item, index) {},
+          ),
+        if (groceryManager.selectedIndex != -1)
+          GroceryItemScreen.page(
+            item: groceryManager.selectedGroceryItem,
+            index: groceryManager.selectedIndex,
+            onCreate: (_) {},
+            onUpdate: (item, index) {
+              groceryManager.updateItem(item, index);
+            },
+          )
       ],
     );
   }
