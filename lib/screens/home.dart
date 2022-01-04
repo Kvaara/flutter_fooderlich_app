@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import "../models/models.dart";
 import 'explore_screen.dart';
@@ -10,18 +11,11 @@ class Home extends StatefulWidget {
     return MaterialPage(
       name: FooderlichPages.home,
       key: ValueKey(FooderlichPages.home),
-      child: Home(
-        currentTab: currentTab,
-      ),
+      child: const Home(),
     );
   }
 
-  const Home({
-    Key? key,
-    required this.currentTab,
-  }) : super(key: key);
-
-  final int currentTab;
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -36,41 +30,48 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Wrap Consumer for AppStateManager
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Fooderlich',
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        actions: [
-          profileButton(),
-        ],
-      ),
-      body: IndexedStack(index: widget.currentTab, children: pages),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
-        currentIndex: widget.currentTab,
-        onTap: (index) {
-          // TODO: Update user's selected tab
-        },
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
+    return Consumer<AppStateManager>(
+      builder: (context, appStateManager, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Fooderlich',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            actions: [
+              profileButton(),
+            ],
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Recipes',
+          body: IndexedStack(
+            index: appStateManager.getSelectedTab,
+            children: pages,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'To Buy',
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor:
+                Theme.of(context).textSelectionTheme.selectionColor,
+            currentIndex: appStateManager.getSelectedTab,
+            onTap: (index) {
+              Provider.of<AppStateManager>(context, listen: false)
+                  .goToTab(index);
+            },
+            items: <BottomNavigationBarItem>[
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.explore),
+                label: 'Explore',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.book),
+                label: 'Recipes',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                label: 'To Buy',
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
-    // TODO: Add closing },);
   }
 
   Widget profileButton() {
