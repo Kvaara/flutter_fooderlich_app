@@ -79,6 +79,10 @@ class AppRouter extends RouterDelegate
       groceryManager.groceryItemTapped(-1);
     }
 
+    if (route.settings.name == FooderlichPages.profilePath) {
+      profileManager.tapOnProfile(false);
+    }
+
     if (route.settings.name == FooderlichPages.raywenderlich) {
       profileManager.tapOnRaywenderlich(false);
     }

@@ -57,6 +57,7 @@ class _FooderlichState extends State<Fooderlich> {
             title: 'Fooderlich',
             home: Router(
               routerDelegate: _appRouter,
+              backButtonDispatcher: RootBackButtonDispatcher(),
             ),
           );
         },
