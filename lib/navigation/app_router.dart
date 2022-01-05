@@ -58,7 +58,9 @@ class AppRouter extends RouterDelegate
             onUpdate: (item, index) {
               groceryManager.updateItem(item, index);
             },
-          )
+          ),
+        if (profileManager.didSelectUser)
+          ProfileScreen.page(profileManager.getUser),
       ],
     );
   }
@@ -70,6 +72,10 @@ class AppRouter extends RouterDelegate
 
     if (route.settings.name == FooderlichPages.onboardingPath) {
       appStateManager.logout();
+    }
+
+    if (route.settings.name == FooderlichPages.groceryItemDetails) {
+      groceryManager.groceryItemTapped(-1);
     }
 
     return true;
