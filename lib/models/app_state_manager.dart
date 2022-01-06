@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'app_cache.dart';
+
 class FooderlichTab {
   static const int explore = 0;
   static const int recipes = 1;
@@ -13,32 +15,38 @@ class AppStateManager extends ChangeNotifier {
   bool _loggedIn = false;
   bool _onboardingComplete = false;
   int _selectedTab = FooderlichTab.explore;
+  final _appCache = AppCache();
 
   bool get isInitialized => _initialized;
   bool get isLoggedIn => _loggedIn;
   bool get isOnboardingComplete => _onboardingComplete;
   int get getSelectedTab => _selectedTab;
 
-  // This gives the app 'artificial 'time to show the splash screen.
-  void initializeApp() {
-    Timer(const Duration(milliseconds: 2000), () {
-      _initialized = true;
-      notifyListeners();
-    });
+  void initializeApp() async {
+    _loggedIn = await _appCache.isUserLoggedIn();
+    _onboardingComplete = await _appCache.didCompleteOnboarding();
+
+    Timer(
+      const Duration(milliseconds: 2000),
+      () {
+        _initialized = true;
+        notifyListeners();
+      },
+    );
   }
 
-  // In a real world scenario, the logging would take place here through an API.
-  void logIn({required String username, required String password}) {
+  void logIn({required String username, required String password}) async {
     _loggedIn = true;
+    await _appCache.cacheUser();
     notifyListeners();
   }
 
-  void completeOnboarding() {
+  void completeOnboarding() async {
     _onboardingComplete = true;
+    await _appCache.completeOnboarding();
     notifyListeners();
   }
 
-  // Utility function that's used to navigate between screens/routes
   void goToTab(index) {
     _selectedTab = index;
     notifyListeners();
@@ -49,12 +57,10 @@ class AppStateManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Logging out should reset the application's state completely and reinitialize it
-  void logout() {
-    _loggedIn = false;
-    _onboardingComplete = false;
+  void logout() async {
     _initialized = false;
     _selectedTab = 0;
+    await _appCache.invalidate();
 
     initializeApp();
     notifyListeners();
