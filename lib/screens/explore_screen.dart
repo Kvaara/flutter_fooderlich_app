@@ -21,9 +21,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void initState() {
     super.initState();
     scrollController = ScrollController();
-    scrollController?.addListener(() {
-      scrollListener();
-    });
   }
 
   @override
@@ -58,14 +55,5 @@ class _ExploreScreenState extends State<ExploreScreen> {
         }
       },
     );
-  }
-
-  void scrollListener() {
-    final position = scrollController?.offset;
-    if (position == 0) {
-      print("I am at the top");
-    } else if (position == 692.0) {
-      print("I am at the bottom");
-    }
   }
 }
